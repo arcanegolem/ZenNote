@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ZenNote</string>
+    <string name="mainMenuHeader">Notes</string>
 </resources>
