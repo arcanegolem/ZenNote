@@ -68,6 +68,9 @@ dependencies {
    debugImplementation("androidx.compose.ui:ui-tooling")
    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+   // Material Icons
+   implementation("androidx.compose.material:material-icons-extended")
+
    // Realm
    implementation("io.realm.kotlin:library-base:1.11.0")
    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
