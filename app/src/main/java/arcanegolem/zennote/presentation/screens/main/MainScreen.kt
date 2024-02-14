@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.NotInterested
 import androidx.compose.runtime.Composable
@@ -35,13 +37,14 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
    val searchQuery = remember { mutableStateOf("") }
    val focusManager = LocalFocusManager.current
+   val notesExist = false
 
    Column(
       modifier = Modifier
          .fillMaxWidth()
          .padding(horizontal = 12.dp)
    ) {
-      Spacer(modifier = Modifier.height(20.dp))
+      Spacer(modifier = Modifier.height(40.dp))
       Header(headerText = stringResource(id = R.string.mainMenuHeader))
       NoteSearchBar(
          modifier = Modifier.fillMaxWidth(),
@@ -84,8 +87,8 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                modifier = Modifier
                   .fillMaxWidth()
                   .height(with(LocalDensity.current) { biggestButtonSize.height.toDp() }),
-               menuActionButtonText = "Create new group",
-               leadingIcon = Icons.Rounded.Add
+               menuActionButtonText = "Create new folder",
+               leadingIcon = Icons.Rounded.FolderOpen
             )
             Spacer(modifier = Modifier.height(spacerSize))
             MenuActionButton(
@@ -98,6 +101,8 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
          }
       }
       Spacer(modifier = Modifier.height(32.dp))
-      SecondaryHeader(secondaryHeaderText = "RECENTLY UPDATED")
+      if (notesExist) {
+         SecondaryHeader(secondaryHeaderText = "RECENTLY UPDATED")
+      }
    }
 }

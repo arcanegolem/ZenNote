@@ -14,8 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import arcanegolem.zennote.R
+import arcanegolem.zennote.ui.theme.SanFrancisco
 
 // TODO: Change searchbar to text field and manage focus
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +45,10 @@ fun NoteSearchBar(
       placeholder = {
          Text(
             text = "Search notes",
-            style = TextStyle(color = Color.LightGray)
+            style = TextStyle(color = Color.LightGray),
+            fontSize = 16.sp,
+            fontWeight = FontWeight(300),
+            fontFamily = SanFrancisco
          )
       },
       shape = RoundedCornerShape(16.dp)

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import arcanegolem.zennote.ui.theme.SanFrancisco
 
 @Composable
 fun MenuActionButton(
@@ -52,7 +53,7 @@ fun MenuActionButton(
          Text(
             text = menuActionButtonText,
             maxLines = 2,
-            style = TextStyle(fontWeight = FontWeight(500), fontSize = 18.sp)
+            style = TextStyle(fontWeight = FontWeight(500), fontSize = 18.sp, fontFamily = SanFrancisco)
          )
       }
    }
