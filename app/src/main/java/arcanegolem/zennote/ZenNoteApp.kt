@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import arcanegolem.zennote.presentation.navigation.ROOT
+import arcanegolem.zennote.presentation.navigation.zenNavGraph
 import arcanegolem.zennote.ui.theme.ZenNoteTheme
 
 @Composable

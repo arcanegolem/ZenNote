@@ -2,6 +2,7 @@ package arcanegolem.zennote
 
 import android.app.Application
 import arcanegolem.zennote.di.appModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class ZenNoteApplication : Application() {
@@ -9,6 +10,7 @@ class ZenNoteApplication : Application() {
       super.onCreate()
 
       startKoin {
+         androidContext(this@ZenNoteApplication)
          modules(appModule)
       }
    }

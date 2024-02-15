@@ -1,6 +1,7 @@
 package arcanegolem.zennote.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -9,15 +10,15 @@ import androidx.compose.ui.unit.sp
 import arcanegolem.zennote.R
 
 val SanFrancisco = FontFamily(
-   Font(R.font.sfpro_black),
-   Font(R.font.sfpro_bold, weight = FontWeight(500)),
-   Font(R.font.sfpro_heavy),
-   Font(R.font.sfpro_light),
-   Font(R.font.sfpro_medium),
-   Font(R.font.sfpro_regular, weight = FontWeight(300)),
-   Font(R.font.sfpro_semibold),
-   Font(R.font.sfpro_thin),
-   Font(R.font.sfpro_ultralight)
+   Font(R.font.sfpro_black,      weight = FontWeight(600)),
+   Font(R.font.sfpro_bold,       weight = FontWeight(550)),
+   Font(R.font.sfpro_heavy,      weight = FontWeight(500)),
+   Font(R.font.sfpro_light,      weight = FontWeight(450)),
+   Font(R.font.sfpro_medium,     weight = FontWeight(400)),
+   Font(R.font.sfpro_regular,    weight = FontWeight(350)),
+   Font(R.font.sfpro_semibold,   weight = FontWeight(300)),
+   Font(R.font.sfpro_thin,       weight = FontWeight(250)),
+   Font(R.font.sfpro_ultralight, weight = FontWeight(200))
 )
 
 // Set of Material typography styles to start with
