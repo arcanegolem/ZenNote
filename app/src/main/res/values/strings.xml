@@ -7,4 +7,10 @@
     <string name="foldersSection">Folders</string>
     <string name="voiceSection">Voice</string>
     <string name="documentsSection">Documents</string>
+
+    <string name="createNewNoteButton">Create new note</string>
+    <string name="createNewFolderButton">Create new folder</string>
+    <string name="recordAudioButton">Record audio</string>
+    <string name="reservedButton">Reserved button</string>
+
 </resources>

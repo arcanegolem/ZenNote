@@ -67,7 +67,6 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
          query = searchQuery
       )
       Spacer(modifier = Modifier.height(16.dp))
-//      SectionMenu(sections = sections, onSectionClick = vm::updateState)
       SectionMenu(sections = sections, onSectionClick = vm::updateState, uiState = uiState.value)
       Spacer(modifier = Modifier.height(32.dp))
 
@@ -89,7 +88,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                      modifier = Modifier
                         .fillMaxWidth()
                         .onGloballyPositioned { biggestButtonSize = it.size.toSize() },
-                     menuActionButtonText = "Create new note",
+                     menuActionButtonText = stringResource(id = R.string.createNewNoteButton),
                      leadingIcon = Icons.Rounded.Add
                   )
                   Spacer(modifier = Modifier.height(spacerSize))
@@ -97,7 +96,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                      modifier = Modifier
                         .fillMaxWidth()
                         .height(with(LocalDensity.current) { biggestButtonSize.height.toDp() }),
-                     menuActionButtonText = "Record audio",
+                     menuActionButtonText = stringResource(id = R.string.recordAudioButton),
                      leadingIcon = Icons.Rounded.Mic
                   )
                }
@@ -109,7 +108,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                      modifier = Modifier
                         .fillMaxWidth()
                         .height(with(LocalDensity.current) { biggestButtonSize.height.toDp() }),
-                     menuActionButtonText = "Create new folder",
+                     menuActionButtonText = stringResource(id = R.string.createNewFolderButton),
                      leadingIcon = Icons.Rounded.FolderOpen
                   )
                   Spacer(modifier = Modifier.height(spacerSize))
@@ -117,7 +116,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                      modifier = Modifier
                         .fillMaxWidth()
                         .height(with(LocalDensity.current) { biggestButtonSize.height.toDp() }),
-                     menuActionButtonText = "Sample",
+                     menuActionButtonText = stringResource(id = R.string.reservedButton),
                      leadingIcon = Icons.Rounded.NotInterested
                   )
                }
