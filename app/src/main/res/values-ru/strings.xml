@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZenNote</string>
+    <string name="homeSection">Меню</string>
+    <string name="notesSection">Заметки</string>
+    <string name="foldersSection">Папки</string>
+    <string name="voiceSection">Голосовые заметки</string>
+    <string name="documentsSection">Документы</string>
+    <string name="createNewNoteButton">Новая заметка</string>
+    <string name="createNewFolderButton">Новая папка</string>
+    <string name="recordAudioButton">Записать аудио</string>
+</resources>
