@@ -79,14 +79,12 @@ fun SectionMenu(
                   fontFamily = SanFrancisco
                )
                Spacer(modifier = Modifier.height(with(LocalDensity.current) { textSize.height.toDp() / 1.5F }))
-               if (uiState == section.state) {
-                  Box(
-                     modifier = Modifier
-                        .width(with(LocalDensity.current) { textSize.width.toDp() })
-                        .height(3.dp)
-                        .background(color = Color.Black, shape = RoundedCornerShape(50))
-                  )
-               }
+               Box(
+                  modifier = Modifier
+                     .width(with(LocalDensity.current) { textSize.width.toDp() })
+                     .height(3.dp)
+                     .background(color = if (uiState == section.state) Color.Black else Color.Transparent, shape = RoundedCornerShape(50))
+               )
             }
             Spacer(modifier = Modifier.width(if (sections.last() == section) 12.dp else 0.dp))
          }
