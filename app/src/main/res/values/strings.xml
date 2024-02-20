@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ZenNote</string>
     <string name="mainMenuHeader" translatable="false">ZenNote</string>
+    <string name="mainMenuSecondHeader">LAST UPDATED</string>
 
     <string name="homeSection">Home</string>
     <string name="notesSection">Notes</string>

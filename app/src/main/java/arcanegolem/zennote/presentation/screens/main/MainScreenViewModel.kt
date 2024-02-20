@@ -3,11 +3,11 @@ package arcanegolem.zennote.presentation.screens.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arcanegolem.zennote.ZenNoteApplication
 import arcanegolem.zennote.data.note.Note
 import arcanegolem.zennote.data.note.components.ComponentType
 import arcanegolem.zennote.data.note.components.NoteComponent
 import arcanegolem.zennote.presentation.screens.main.sections.SectionState
+import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +17,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class MainScreenViewModel() : ViewModel() {
-
-   private val realm = ZenNoteApplication.realm
+class MainScreenViewModel(private val realm: Realm) : ViewModel() {
 
    val uiState : MutableStateFlow<SectionState> =
       MutableStateFlow(SectionState.Home)
@@ -35,14 +33,14 @@ class MainScreenViewModel() : ViewModel() {
 
    init {
       Log.i("MainScreenViewModel", "Initialized!")
-      mockEntries()
+//      mockEntry()
    }
 
-   private fun mockEntries() {
+   private fun mockEntry() {
       viewModelScope.launch(Dispatchers.IO) {
          realm.write {
             val note = Note().apply {
-               title = "TestNote"
+               title = "TestNoteShouldBeOutNew"
             }
 
             val textComponent = NoteComponent().apply {
@@ -57,6 +55,8 @@ class MainScreenViewModel() : ViewModel() {
    }
 
    fun updateState(state: SectionState) {
-      uiState.value = state
+      if (state != uiState.value) {
+         uiState.value = state
+      }
    }
 }

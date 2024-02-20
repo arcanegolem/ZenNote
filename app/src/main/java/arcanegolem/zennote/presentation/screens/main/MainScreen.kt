@@ -1,21 +1,25 @@
 package arcanegolem.zennote.presentation.screens.main
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.NotInterested
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,8 +27,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -45,8 +51,6 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
    val searchQuery = remember { mutableStateOf("") }
-   val notesExist = false
-
    val uiState = vm.uiState.asStateFlow().collectAsState()
 
    val sections = listOf(
@@ -61,7 +65,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
 
    Column(
       modifier = Modifier
-         .fillMaxWidth()
+         .fillMaxSize()
    ) {
       Spacer(modifier = Modifier.height(40.dp))
       Header(modifier = Modifier.padding(horizontal = 12.dp), headerText = stringResource(id = R.string.mainMenuHeader))
@@ -128,15 +132,49 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                   )
                }
             }
-            Spacer(modifier = Modifier.height(32.dp))
-            SecondaryHeader(modifier = Modifier.padding(horizontal = 12.dp), secondaryHeaderText = "LAST UPDATED")
+            if (notes.value.isNotEmpty()) {
+               Spacer(modifier = Modifier.height(32.dp))
+               SecondaryHeader(
+                  modifier = Modifier.padding(horizontal = 12.dp),
+                  secondaryHeaderText = stringResource(id = R.string.mainMenuSecondHeader)
+               )
+               Spacer(modifier = Modifier.height(16.dp))
+               LazyColumn(
+                  modifier = Modifier
+                     .padding(horizontal = 12.dp)
+                     .animateContentSize()
+               ) {
+                  val subList =
+                     if (notes.value.size < 5) notes.value.sortedBy { it.id } else notes.value.sortedBy { it.id }
+                        .subList(0, 5)
+                  items(subList) {
+                     Text(text = it.title) // TODO: Change for dedicated component
+                  }
+               }
+            }
          }
          SectionState.Notes -> {
-            LazyColumn(
-               modifier = Modifier.fillMaxWidth()
-            ) {
-               itemsIndexed(notes.value, key = { idx, _ -> idx }) {idx, it ->
-                  Text(text = it.title)
+            Box(
+               modifier = Modifier
+                  .fillMaxSize()
+                  .padding(horizontal = 12.dp)
+            ){
+               LazyColumn(
+                  modifier = Modifier.fillMaxWidth()
+               ) {
+                  items(notes.value) {
+                     Text(text = it.title) // TODO: Change for dedicated component
+                  }
+               }
+               FloatingActionButton(
+                  modifier = Modifier
+                     .align(Alignment.BottomEnd)
+                     .padding(bottom = 24.dp, end = 12.dp),
+                  onClick = { /*TODO*/ },
+                  containerColor = Color.Black, // TODO: Awh theming awaits
+                  contentColor = Color.White
+               ) {
+                  Icon(imageVector = Icons.Rounded.Add, contentDescription = "add note icon")
                }
             }
          }

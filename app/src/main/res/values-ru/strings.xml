@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ZenNote</string>
+    <string name="mainMenuSecondHeader">ПОСЛЕДНИЕ ЗАМЕТКИ</string>
     <string name="homeSection">Меню</string>
     <string name="notesSection">Заметки</string>
     <string name="foldersSection">Папки</string>
