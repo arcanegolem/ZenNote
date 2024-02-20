@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.OutlinedButton
@@ -20,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
@@ -30,6 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import arcanegolem.zennote.ui.theme.SanFrancisco
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun SectionMenu(sections : List<Section>, onSectionClick : (SectionState) -> Unit) {
@@ -55,16 +60,35 @@ fun SectionMenu(
    onSectionClick : (SectionState) -> Unit,
    uiState: SectionState
 ) {
+   val interactionSource = MutableInteractionSource()
+   val sectionMenuState = rememberLazyListState()
+   var sectionMenuSize by remember { mutableStateOf(Size.Zero) }
+   val scope = rememberCoroutineScope()
+
    Column(modifier = modifier) {
-      val interactionSource = MutableInteractionSource()
-      LazyRow(modifier = Modifier.fillMaxWidth()) {
-         items(sections) { section ->
+      LazyRow(
+         state = sectionMenuState,
+         modifier = Modifier
+            .fillMaxWidth()
+            .onGloballyPositioned { sectionMenuSize = it.size.toSize() }
+      ) {
+         itemsIndexed(sections) { index, section ->
+            var sectionMemberSize by remember { mutableStateOf(Size.Zero) }
+
             Spacer(modifier = Modifier.width(if (sections.first() == section) 12.dp else 28.dp))
             Column(
                modifier = Modifier.clickable(
                   interactionSource,
                   null
-               ) { onSectionClick(section.state) }
+               ) {
+                  onSectionClick(section.state)
+                  scope.launch(Dispatchers.IO) {
+                     sectionMenuState.animateScrollToItem(
+                        index = index,
+                        scrollOffset = -(sectionMenuSize.width / 2F).toInt() + sectionMemberSize.width.toInt()
+                     )
+                  }
+               }.onGloballyPositioned { sectionMemberSize = it.size.toSize() }
             ) {
                var textSize by remember { mutableStateOf(Size.Zero) }
                Text(

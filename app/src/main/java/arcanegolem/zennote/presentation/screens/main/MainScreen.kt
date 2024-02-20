@@ -1,5 +1,6 @@
 package arcanegolem.zennote.presentation.screens.main
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -79,6 +80,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                   .fillMaxWidth()
                   .padding(horizontal = 12.dp)
                   .onGloballyPositioned { rowSize = it.size.toSize() }
+                  .animateContentSize()
             ) {
                var biggestButtonSize by remember { mutableStateOf(Size.Zero) }
                Column(
