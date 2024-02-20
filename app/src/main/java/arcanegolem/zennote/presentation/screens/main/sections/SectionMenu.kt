@@ -30,8 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import arcanegolem.zennote.ui.theme.SanFrancisco
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -58,18 +56,12 @@ fun SectionMenu(
 
             Spacer(modifier = Modifier.width(if (sections.first() == section) 12.dp else 28.dp))
             Column(
-               modifier = Modifier.clickable(
-                  interactionSource,
-                  null
-               ) {
-                  onSectionClick(section.state)
-                  scope.launch(Dispatchers.IO) {
-                     sectionMenuState.animateScrollToItem(
-                        index = index,
-                        scrollOffset = -(sectionMenuSize.width / 2F).toInt() + sectionMemberSize.width.toInt()
-                     )
-                  }
-               }.onGloballyPositioned { sectionMemberSize = it.size.toSize() }
+               modifier = Modifier
+                  .clickable(
+                     interactionSource,
+                     null
+                  ) { onSectionClick(section.state) }
+                  .onGloballyPositioned { sectionMemberSize = it.size.toSize() }
             ) {
                var textSize by remember { mutableStateOf(Size.Zero) }
                Text(
