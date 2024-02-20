@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.NotInterested
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,6 +56,8 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
       Section(SectionState.Voice,     stringResource(id = R.string.voiceSection)),
       Section(SectionState.Documents, stringResource(id = R.string.documentsSection))
    )
+
+   val notes = vm.notes.collectAsState()
 
    Column(
       modifier = Modifier
@@ -124,11 +129,17 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                }
             }
             Spacer(modifier = Modifier.height(32.dp))
-            if (notesExist) {
-               SecondaryHeader(modifier = Modifier.padding(horizontal = 12.dp), secondaryHeaderText = "LAST UPDATED")
+            SecondaryHeader(modifier = Modifier.padding(horizontal = 12.dp), secondaryHeaderText = "LAST UPDATED")
+         }
+         SectionState.Notes -> {
+            LazyColumn(
+               modifier = Modifier.fillMaxWidth()
+            ) {
+               itemsIndexed(notes.value, key = { idx, _ -> idx }) {idx, it ->
+                  Text(text = it.title)
+               }
             }
          }
-         SectionState.Notes -> {}
          SectionState.Folders -> {}
          SectionState.Voice -> {}
          SectionState.Documents -> {}

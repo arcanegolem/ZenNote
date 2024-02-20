@@ -1,6 +1,5 @@
 package arcanegolem.zennote.presentation.screens.main.sections
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -11,12 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,22 +33,6 @@ import arcanegolem.zennote.ui.theme.SanFrancisco
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Composable
-fun SectionMenu(sections : List<Section>, onSectionClick : (SectionState) -> Unit) {
-   LazyRow() {
-      items(sections) { section ->
-         Spacer(modifier = Modifier.width(if (sections.first() == section) 12.dp else 6.dp))
-         OutlinedButton(
-            shape = RoundedCornerShape(100),
-            onClick = { onSectionClick(section.state) },
-            border = BorderStroke(width = (0.8).dp, color = Color.LightGray),
-         ) {
-            Text(text = section.name)
-         }
-         Spacer(modifier = Modifier.width(if (sections.last() == section) 12.dp else 0.dp))
-      }
-   }
-}
 
 @Composable
 fun SectionMenu(

@@ -2,7 +2,6 @@ plugins {
    id("com.android.application")
    id("org.jetbrains.kotlin.android")
    id("io.realm.kotlin")
-//   id("com.google.devtools.ksp")
 }
 
 android {
@@ -80,6 +79,10 @@ dependencies {
 
    // Kotlin Coroutines
    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+   // OrbitMVI
+   implementation("org.orbit-mvi:orbit-viewmodel:6.1.0")
+   implementation("org.orbit-mvi:orbit-compose:6.1.0")
 
    // Koin
    implementation("io.insert-koin:koin-android:3.2.0")
