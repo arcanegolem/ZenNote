@@ -18,6 +18,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.NotInterested
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.toSize
 import arcanegolem.zennote.R
 import arcanegolem.zennote.presentation.components.Header
 import arcanegolem.zennote.presentation.components.SecondaryHeader
+import arcanegolem.zennote.presentation.navigation.NOTE
 import arcanegolem.zennote.presentation.screens.main.components.MenuActionButton
 import arcanegolem.zennote.presentation.screens.main.components.NoteSearchBar
 import arcanegolem.zennote.presentation.screens.main.sections.Section
@@ -49,9 +51,10 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
+fun MainScreen(vm : MainScreenViewModel = koinViewModel(), onNoteClick: (String) -> Unit) {
    val searchQuery = remember { mutableStateOf("") }
    val uiState = vm.uiState.asStateFlow().collectAsState()
+   val notes = vm.notes.collectAsState()
 
    val sections = listOf(
       Section(SectionState.Home,      stringResource(id = R.string.homeSection)),
@@ -60,8 +63,6 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
       Section(SectionState.Voice,     stringResource(id = R.string.voiceSection)),
       Section(SectionState.Documents, stringResource(id = R.string.documentsSection))
    )
-
-   val notes = vm.notes.collectAsState()
 
    Column(
       modifier = Modifier
@@ -145,7 +146,7 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                      .animateContentSize()
                ) {
                   val subList =
-                     if (notes.value.size < 5) notes.value.sortedBy { it.id } else notes.value.sortedBy { it.id }
+                     if (notes.value.size < 5) notes.value.sortedBy { it._id } else notes.value.sortedBy { it._id }
                         .subList(0, 5)
                   items(subList) {
                      Text(text = it.title) // TODO: Change for dedicated component
@@ -163,7 +164,8 @@ fun MainScreen(vm : MainScreenViewModel = koinViewModel()) {
                   modifier = Modifier.fillMaxWidth()
                ) {
                   items(notes.value) {
-                     Text(text = it.title) // TODO: Change for dedicated component
+                     Button(onClick = { onNoteClick("$NOTE/${it._id.toHexString()}") })
+                     { Text(text = it.title) } // TODO: Change for dedicated component
                   }
                }
                FloatingActionButton(

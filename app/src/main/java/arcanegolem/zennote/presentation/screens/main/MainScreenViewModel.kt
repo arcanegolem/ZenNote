@@ -40,7 +40,7 @@ class MainScreenViewModel(private val realm: Realm) : ViewModel() {
       viewModelScope.launch(Dispatchers.IO) {
          realm.write {
             val note = Note().apply {
-               title = "TestNoteShouldBeOutNew"
+               title = "TestNote"
             }
 
             val textComponent = NoteComponent().apply {

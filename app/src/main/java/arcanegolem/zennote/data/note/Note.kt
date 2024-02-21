@@ -8,7 +8,7 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
 class Note : RealmObject {
-   @PrimaryKey var id: ObjectId = ObjectId()
+   @PrimaryKey var _id: ObjectId = ObjectId()
    var title : String = ""
    var components : RealmList<NoteComponent> = realmListOf()
 }
